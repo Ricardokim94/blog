@@ -31,23 +31,23 @@ function App() {
 
       <div className="list">
         <h4>{mem[0]} <span onClick={()=>{changeCount(count +1)}}>👍</span> {count} </h4>
-        <p>2월 17일 발행</p>
+        <p>Member ^^</p>
       </div>
       <div className="list">
         <h4>{mem[1]}</h4>
-        <p>2월 17일 발행</p>
+        <p>Member ^^</p>
       </div>
       <div className="list">
         <h4>{mem[2]}</h4>
-        <p>2월 17일 발행</p>
+        <p>Member ^^</p>
       </div>
       <div className="list">
         <h4>{mem[3]}</h4>
-        <p>2월 17일 발행</p>
+        <p>Member ^^</p>
       </div>
       <div className="list">
         <h4>{mem[4]}</h4>
-        <p>2월 17일 발행</p>
+        <p>Member ^^</p>
       </div>
     </div>
   );
