@@ -19,16 +19,6 @@ function App() {
         <h4 style={{textAlign : 'left', paddingLeft : '20px'}}>{post}</h4>
       </div>
 
-      {/* 버튼 눌렀을때 값 바뀌게 하는 방법 */}
-      <div style={{textAlign : 'left', paddingLeft : '20px'}}>
-        <button onClick={()=>{
-          let change = [...mem];
-          change[3] = ['김경원'];
-          change[4] = ['명소은'];
-          memChnage(change);
-        }}>AddMember</button>
-      </div>
-
       <div className="list">
         <h4>{mem[0]} <span onClick={()=>{changeCount(count +1)}}>👍</span> {count} </h4>
         <p>Member ^^</p>
@@ -41,16 +31,21 @@ function App() {
         <h4>{mem[2]}</h4>
         <p>Member ^^</p>
       </div>
-      <div className="list">
-        <h4>{mem[3]}</h4>
-        <p>Member ^^</p>
-      </div>
-      <div className="list">
-        <h4>{mem[4]}</h4>
-        <p>Member ^^</p>
-      </div>
+      
+      <Modal></Modal>
+      
     </div>
   );
+}
+
+function Modal(){
+  return(
+    <div className="modal">
+        <h4>제목</h4>
+        <p>날짜</p>
+        <p>상세내용</p>
+      </div>
+  )
 }
 
 export default App;
