@@ -8,10 +8,10 @@ function App() {
   let post = 'Member'
 
   let [mem, memChnage] = useState(['오현호', '김창목', '유영인']); //Member이름
-  let [count, changeCount] = useState([0]); //최고 카운트수
+  let [count, changeCount] = useState([0, 0, 0]); //최고 카운트수
   let [modal, setModal] = useState(false); //Modal창 초기값 false로 줌.
 
-  
+
   return (
     <div className="App">
       <div className='black-nav'>
@@ -21,24 +21,19 @@ function App() {
       <div>
         <h4 style={{ textAlign: 'left', paddingLeft: '20px' }}> {post} </h4>
       </div>
-     
-
-      {
-        modal == true ? <Modal /> : null //react 조건문 if 대신 쓰는 삼항연산자
-      }
 
 
       {
         mem.map(function (a, i) { //react 에서 for 대신 쓰는 반복문 map
           return (
             <div className="list" key='{i}'>
-              <h4>
+              <h4 onClick={() => { setModal(!modal) }} >
                 {mem[i]}
-                  <span onClick={() => { 
-                    let copy = [...count];
-                    copy[i] = copy[i] + 1;
-                    changeCount(copy) 
-                    }}>👍</span>{count[i]} 
+                <span onClick={() => {
+                  let copy = [...count];
+                  copy[i] = copy[i] + 1;
+                  changeCount(copy)
+                }}>👍</span>{count[i]}
               </h4>
               <p>Member</p>
             </div>
@@ -46,17 +41,24 @@ function App() {
         })
       }
 
+      {
+        modal == true ? <Modal color={'skyblue'} mem={mem}/> : null //react 조건문 if 대신 쓰는 삼항연산자
+      }
+
+
 
     </div>
   );
 }
 
-function Modal() {
+//Modal 창
+function Modal(props, i) {
   return (
-    <div className="modal">
-      <h4>제목</h4>
+    <div className="modal" style={{background : props.color}}>
+      <h4> {props.mem} </h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button onClick={() => {memChnage(props.mem)}}>글 수정</button>
     </div>
   )
 }
