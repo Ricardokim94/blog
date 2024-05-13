@@ -7,10 +7,15 @@ function App() {
 
   let post = 'Member'
 
-  let [mem, memChnage] = useState(['오현호', '김창목', '유영인']); //Member이름
+  let [mem, memChange] = useState(['오현호', '김창목', '유영인']); //Member이름
   let [count, changeCount] = useState([0, 0, 0]); //최고 카운트수
   let [modal, setModal] = useState(false); //Modal창 초기값 false로 줌.
+  let [modalIndex, setModalIndex] = useState(null); // Modal에 해당하는 인덱스
 
+  const openModal = (index) => {
+    setModalIndex(index);
+    setModal(true);
+  }
 
   return (
     <div className="App">
@@ -22,43 +27,35 @@ function App() {
         <h4 style={{ textAlign: 'left', paddingLeft: '20px' }}> {post} </h4>
       </div>
 
+      {mem.map((member, index) => (
+        <div className="list" key={index}>
+          <h4 onClick={() => openModal(index)}>
+            {member}
+            <span onClick={(e) => {
+              e.stopPropagation(); // 부모 요소로 이벤트 전파 방지
+              let copy = [...count];
+              copy[index] = copy[index] + 1;
+              changeCount(copy);
+            }}>👍</span>{count[index]}
+          </h4>
+          <p>Member</p>
+        </div>
+      ))}
 
-      {
-        mem.map(function (a, i) { //react 에서 for 대신 쓰는 반복문 map
-          return (
-            <div className="list" key='{i}'>
-              <h4 onClick={() => { setModal(!modal) }} >
-                {mem[i]}
-                <span onClick={() => {
-                  let copy = [...count];
-                  copy[i] = copy[i] + 1;
-                  changeCount(copy)
-                }}>👍</span>{count[i]}
-              </h4>
-              <p>Member</p>
-            </div>
-          )
-        })
-      }
-
-      {
-        modal == true ? <Modal color={'skyblue'} mem={mem}/> : null //react 조건문 if 대신 쓰는 삼항연산자
-      }
-
-
+      {modal && <Modal memChange={memChange} mem={mem[modalIndex]} index={modalIndex}/>}
 
     </div>
   );
 }
 
 //Modal 창
-function Modal(props, i) {
+function Modal(props) {
   return (
-    <div className="modal" style={{background : props.color}}>
-      <h4> {props.mem} </h4>
+    <div className="modal">
+      <h4>{props.mem}</h4>
       <p>날짜</p>
       <p>상세내용</p>
-      <button onClick={() => {memChnage(props.mem)}}>글 수정</button>
+      <button>글 수정</button>
     </div>
   )
 }
