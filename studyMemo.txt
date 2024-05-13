@@ -32,3 +32,10 @@
   2. props 파라미터 등록 후 props.작명 사용
   *props전송은 부모에서 자식만 가능하다.
   ** 자식에서 부모 X / modal1 -> modal2 X
+
+
+##input 테그 type
+  type = "" range / checkbox / date
+  select / textarea 등등
+  <input>에 뭔가 입력시 코드 실해아고 싶으면
+  onChange / oninput
