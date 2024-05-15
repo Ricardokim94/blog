@@ -1,7 +1,7 @@
 /*eslint-disable */
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react'; 
 
 function App() {
 
@@ -65,7 +65,6 @@ function App() {
       }}> Member 추가</button>
 
       {modal && <Modal memChange={memChange} mem={mem[modalIndex]} index={modalIndex} />}
-
     </div>
   );
 }
@@ -80,6 +79,8 @@ function Modal(props) {
     </div>
   )
 }
+
+
 
 export default App;
 
