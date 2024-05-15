@@ -11,7 +11,7 @@ function App() {
   let [count, changeCount] = useState([0, 0, 0]); //최고 카운트수
   let [modal, setModal] = useState(false); //Modal창 초기값 false로 줌.
   let [modalIndex, setModalIndex] = useState(null); // Modal에 해당하는 인덱스
-  let [userWrite, changeUserWrite]= useState('');
+  let [userWrite, userWriteChange] = useState('');
 
 
   const openModal = (index) => {
@@ -29,31 +29,42 @@ function App() {
         <h4 style={{ textAlign: 'left', paddingLeft: '20px' }}> {post} </h4>
       </div>
 
-      {mem.map((member, index) => (
-        <div className="list" key={index}>
-          <h4 onClick={() => openModal(index)}>
-            {member}
-            <span onClick={(e) => {
-              e.stopPropagation(); // 부모 요소로 이벤트 전파 방지
-              let copy = [...count];
-              copy[index] = copy[index] + 1;
-              changeCount(copy);
-            }}>👍</span>{count[index]}
-          </h4>
-          {/* 삭제 */}
-          <p>Member {index +1} <button style={{ float: 'right', marginRight: '20px' }}> Delete</button> </p>
-          
-        </div>
-      ))}
+      {
+        mem.map((member, index) => (
+          <div className="list" key={index}>
+            <h4 onClick={() => openModal(index)}>
+              {member}
+              <span onClick={(e) => {
+                e.stopPropagation(); // 부모 요소로 이벤트 전파 방지
+                let copy = [...count];
+                copy[index] = copy[index] + 1;
+                changeCount(copy);
+              }}>👍</span>{count[index]}
+            </h4>
+            <p>Member {index + 1}
+              {/* 삭제 */}
+              <button onClick={()=>{
+                let copy = [...mem];
+                copy.splice(index,1);
+                memChange(copy)
+              }} style={{ float: 'right', marginRight: '20px' }
+              }> Delete</button> </p>
+
+          </div>
+        ))}
 
       {/* input tag 사용해서 사용자 입력 값 넣기 */}
-      <input onChange={(e)=> {
-        console.log(e.target.value);
-        console.log(userWrite);
-      }}/> 
-      <button> 입력</button>
+      <input onChange={(e) => {
+        console.log('----- : ', e.target.value);
+        userWriteChange(e.target.value)
+      }} />
+      <button onClick={() => {
+        let copy = [...mem];
+        copy.unshift(userWrite);
+        memChange(copy)
+      }}> Member 추가</button>
 
-      {modal && <Modal memChange={memChange} mem={mem[modalIndex]} index={modalIndex}/>}
+      {modal && <Modal memChange={memChange} mem={mem[modalIndex]} index={modalIndex} />}
 
     </div>
   );
